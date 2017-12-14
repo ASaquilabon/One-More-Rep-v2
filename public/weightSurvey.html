@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Weight Survey</title>
+
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+
+    <link href="../assets/css/style.css" type="text/css" rel="stylesheet">
+
+    <!-- Font Awesome Glyphicons -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+    <!-- Chosen -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h2>Survey Questions</h2>
+        <hr>
+
+        <h3>
+            <strong>Track Your Weight</strong>
+        </h3>
+        <h4>Week 1 Weight</h4>
+        <input type="text" name="" id="week-1-weight" class="form-control" required>
+
+        <h4>Week 2 Weight</h4>
+        <input type="text" name="" id="week-2-weight" class="form-control" required>
+
+        <h4>Week 3 Weight</h4>
+        <input type="text" name="" id="week-3-weight" class="form-control" required>
+
+        <h4>Week 4 Weight</h4>
+        <input type="text" name="" id="week-4-weight" class="form-control" required>
+
+        <h4>Week 5 Weight</h4>
+        <input type="text" name="" id="week-5-weight" class="form-control" required>
+
+        <h4>Week 6 Weight</h4>
+        <input type="text" name="" id="week-6-weight" class="form-control" required>
+
+        <hr>
+
+        <!-- <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit">
+            <i class="fa fa-check-circle" aria-hidden="true"></i>
+            Submit</button> -->
+
+        <!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info btn-lg btn block" id="submit" data-toggle="modal" data-target="#myModal">Submit</button>
+
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Success!</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Your data has been accepted!</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <hr>
+
+        <script>
+            // Capture the form inputs 
+            $("#submit").on("click", function () {
+
+                // Form validation
+                function validateForm() {
+                    var isValid = true;
+                    $('.form-control').each(function () {
+                        if ($(this).val() === '')
+                            isValid = false;
+                    });
+
+                    return isValid;
+                }
+
+                // If all required fields are filled
+                if (validateForm() == true) {
+                    // Create an object for the user's data
+                    var userData = {
+                        weight: [$("#week-1-weight").val(), $("#week-2-weight").val(), $("#week-3-weight").val(), $("#week-4-weight").val(), $("#week-5-weight").val(), $("#week-6-weight").val()]
+                    }
+
+                    console.log(userData);
+
+                    // // Grab the URL of the website
+                    // var currentURL = window.location.origin;
+
+                    // AJAX post the data to the friends API. 
+                    $.post("/api/weight", userData, function (data) {
+                        // if success then show user feedback that it was successful
+                        if (data.res == true) {
+                            alert("Your weight changes have been successfully saved!");
+                        } else {
+                            alert("You suck");
+                        }
+                    });
+                }
+            });
+
+
+        </script>
+
+    </div>
+
+</body>
+
+</html>
