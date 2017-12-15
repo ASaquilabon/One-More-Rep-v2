@@ -1,5 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
-  var Customer = sequelize.define("Customer", {
+  var UserData = sequelize.define("UserData", {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -20,7 +20,23 @@ module.exports = function (sequelize, DataTypes) {
       validate: {
         len: [1]
       }
-    }, 
+    },
+    startingWeight: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        len: [1]
+      
+      }
+    },
   });
-  return Customer;
+  // Post.associate = function (models) {
+  //   Weight.belongsTo(models.Post, {
+  //     foreignKey: {
+  //       allowNull: false
+  //     },
+  //     onDelete: 'CASCADE'
+  //   });
+  // };
+  return UserData;
 };

@@ -1,7 +1,8 @@
-var db = require("./models");
+var db = require("../models");
 module.exports = function (app) {
 
-app.post("/api/userData", function (req, res){
+app.post("/api/userInputer", function (req, res){
     res.json({});
+    console.log(req.body);
 });
-}
+};
